@@ -45,6 +45,7 @@ static uint16_t get_next_instruction() {
 }
 
 static void run_instruction(uint16_t instr) {
+    int res;
     switch (instr >> 12) {
     case 0x0:
     if (instr & 0x000F == 0x0) {
@@ -114,7 +115,7 @@ static void run_instruction(uint16_t instr) {
         break;
         case 0x4:
         // ADD Vx, Vy
-        int res = V[snib(instr)] + V[tnib(instr)];
+        res = V[snib(instr)] + V[tnib(instr)];
         if (res != ((uint8_t) res)) V[0xF] = 1;
         else V[0xF] = 0;
         V[snib(instr)] = (uint8_t) res;
