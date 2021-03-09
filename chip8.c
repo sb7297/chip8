@@ -121,6 +121,20 @@ static void run_instruction(uint16_t instr) {
         V[snib(instr)] = (uint8_t) res;
         PC += 1;
         break;
+        case 0x5:
+        // SUB Vx, Vy
+        res = V[snib(instr)] + V[tnib(instr)];
+        if (res > 0) V[0xF] = 1;
+        else V[0xF] = 0;
+        V[snib(instr)] = (uint8_t) res;
+        PC += 1;
+        break;
+        case 0x6:
+        // SHR
+        res = V[snib(instr)] & 0x01;
+        V[snib(instr)] = V[snib(instr)] >> 1;
+        PC += 1;
+        break;
     }
     break;
     }
